@@ -1,0 +1,3 @@
+services:
+  ? ffc-sfd-file-processor
+  : command: npm run start:debug

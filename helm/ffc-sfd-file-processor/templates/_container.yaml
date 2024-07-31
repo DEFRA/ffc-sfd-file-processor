@@ -1,0 +1,2 @@
+{{- define "ffc-sfd-file-processor.container" -}}
+{{- end -}}

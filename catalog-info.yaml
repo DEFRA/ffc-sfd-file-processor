@@ -1,0 +1,37 @@
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: ffc-sfd-file-processor
+  description: This service is a prototype and research for file upload/download functionality
+  for single front door
+  annotations:
+    github.com/project-slug: DEFRA/ffc-sfd-file-processor
+    dev.azure.com/project: DEFRA-FFC
+    dev.azure.com/build-definition: ffc-sfd-file-processor
+    sonarqube.org/project-key: ffc-sfd-file-processor
+    grafana/dashboard-selector: "folderTitle == 'Managed Prometheus'"
+    backstage.io/kubernetes-id: ffc-sfd-file-processor
+  links:
+    - url: https://github.com/DEFRA/ffc-sfd-file-processor
+      title: GitHub Repository
+      icon: github
+    - url: https://dev.azure.com/defragovuk/DEFRA-FFC
+      title: Azure DevOps Project
+      icon: project
+    - url: https://sonarcloud.io/project/overview?id=ffc-sfd-file-processor
+      title: SonarCloud Analysis
+      icon: check
+    - url: https://snyk.io/test/github/DEFRA/ffc-sfd-file-processor
+      title: Snyk Analysis
+      icon: policy
+    - url: https://portal.azure.com/defradev.onmicrosoft.com
+      title: Azure Portal - Defra Dev
+      icon: cloud
+    - url: https://portal.azure.com/Defra.onmicrosoft.com
+      title: Azure Portal - Defra
+      icon: cloud
+spec:
+  type: backend
+  lifecycle: alpha
+  owner: group:default/fcp-sfd
+  

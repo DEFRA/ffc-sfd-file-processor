@@ -1,0 +1,13 @@
+services:
+  ? ffc-sfd-file-processor
+  : build:
+      context: .
+      target: production
+    image: ffc-sfd-file-processor
+    container_name: ffc-sfd-file-processor
+    depends_on:
+      - ffc-sfd-file-processor-postgres
+    environment:
+      APPINSIGHTS_CLOUDROLE: ffc-sfd-file-processor-local
+      APPINSIGHTS_CONNECTIONSTRING: ${APPINSIGHTS_CONNECTIONSTRING}
+
