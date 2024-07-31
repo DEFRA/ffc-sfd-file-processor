@@ -3,7 +3,7 @@ kind: Component
 metadata:
   name: ffc-sfd-file-processor
   description: This service is a prototype and research for file upload/download functionality
-  for single front door
+    for single front door
   annotations:
     github.com/project-slug: DEFRA/ffc-sfd-file-processor
     dev.azure.com/project: DEFRA-FFC
