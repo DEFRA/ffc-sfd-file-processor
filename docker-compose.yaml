@@ -1,13 +1,14 @@
-services:
-  ? ffc-sfd-file-processor
-  : build:
+services: 
+  ffc-sfd-file-processor:
+    build:
       context: .
       target: production
     image: ffc-sfd-file-processor
     container_name: ffc-sfd-file-processor
-    depends_on:
-      - ffc-sfd-file-processor-postgres
     environment:
       APPINSIGHTS_CLOUDROLE: ffc-sfd-file-processor-local
       APPINSIGHTS_CONNECTIONSTRING: ${APPINSIGHTS_CONNECTIONSTRING}
-
+      AUTH_HOST: ${AUTH_HOST:-http://ffc-sfd-proxy:3000}
+      GATEWAY_HOST: ${GATEWAY_HOST:-http://localhost:3000}
+      DATA_HOST: ${DATA_HOST:-http://ffc-sfd-data:3004/graphql}
+      AHWP_HOST: ${AHWP_HOST:-http://localhost:3010}

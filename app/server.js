@@ -1,15 +1,36 @@
-require('./insights').setup()
+const Joi = require('joi')
 const Hapi = require('@hapi/hapi')
+const { serverConfig } = require('./config')
 
-const server = Hapi.server({
-  port: process.env.PORT
-})
+const createServer = async () => {
+  const server = Hapi.server({
+    port: serverConfig.port,
+    routes: {
+      validate: {
+        options: {
+          abortEarly: false
+        }
+      }
+    },
+    router: {
+      stripTrailingSlash: true
+    }
+  })
 
-const routes = [].concat(
-  require('./routes/healthy'),
-  require('./routes/healthz')
-)
+  // Register the plugins
+  server.validator(Joi)
+  await server.register(require('@hapi/inert'))
+  await server.register(require('hapi-auth-jwt2'))
+  await server.register(require('./plugins/auth'))
+  await server.register(require('./plugins/router'), { routes: { prefix: serverConfig.routePrefix } })
+  await server.register(require('./plugins/errors'))
+  await server.register(require('./plugins/crumb'))
+  await server.register(require('./plugins/logging'))
+  await server.register(require('./plugins/auth-refresh'))
+  if (serverConfig.isDev) {
+    await server.register(require('blipp'))
+  }
 
-server.route(routes)
-
-module.exports = server
+  return server
+}
+module.exports = { createServer }

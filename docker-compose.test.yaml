@@ -2,8 +2,8 @@
 # that test output is saved to the host
 
 services:
-  ? ffc-sfd-file-processor
-  : build:
+ ffc-sfd-file-processor: 
+    build:
       target: development
     image: ffc-sfd-file-processor-development
     container_name: ffc-sfd-file-processor-test

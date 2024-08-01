@@ -1,5 +1,5 @@
 services:
-  ? ffc-sfd-file-processor
-  : command: npm run test:debug
+   ffc-sfd-file-processor:
+    command: npm run test:debug
     ports:
-      - "9229:9229"
+      - "9019:9229"
