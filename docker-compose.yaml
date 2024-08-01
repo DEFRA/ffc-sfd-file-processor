@@ -18,7 +18,7 @@ services:
       AZURE_STORAGE_USE_CONNECTION_STRING: "true"
   
   ffc-sfd-file-processor-azurite:
-    image: mcr.microsoft.com/azure-storage/azurite:3.9.0
+    image: mcr.microsoft.com/azure-storage/azurite:3.31.0
     command: "azurite-blob --loose --blobHost 0.0.0.0"
     labels:
       com.docker.compose.pay.role: ffc-sfd-file-processor-azurite

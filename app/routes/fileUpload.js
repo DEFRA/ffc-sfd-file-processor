@@ -5,15 +5,20 @@ const uploadFile = async (request, h) => {
   const { payload } = request
   const { file } = payload
 
-  const blobServiceClient = BlobServiceClient.fromConnectionString(config.connectionStr)
-  const containerClient = blobServiceClient.getContainerClient(config.container)
+  try {
+    const blobServiceClient = BlobServiceClient.fromConnectionString(config.connectionStr)
+    const containerClient = blobServiceClient.getContainerClient(config.container)
 
-  const blobName = `${config.folder}/${file.hapi.filename}`
-  const blockBlobClient = containerClient.getBlockBlobClient(blobName)
+    const blobName = `${config.folder}/${file.hapi.filename}`
+    const blockBlobClient = containerClient.getBlockBlobClient(blobName)
 
-  await blockBlobClient.upload(file._data)
+    await blockBlobClient.uploadStream(file)
 
-  return h.response({ message: 'File uploaded successfully', blobName }).code(201)
+    return h.response({ message: 'File uploaded successfully', blobName }).code(201)
+  } catch (error) {
+    console.error('Error uploading file:', error.message)
+    return h.response({ error: 'File upload failed', details: error.message }).code(500)
+  }
 }
 
 module.exports = {
