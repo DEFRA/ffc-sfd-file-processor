@@ -15,7 +15,7 @@ services:
       DATA_HOST: ${DATA_HOST:-http://ffc-sfd-data:3004/graphql}
       AHWP_HOST: ${AHWP_HOST:-http://localhost:3010}
       AZURE_STORAGE_ACCOUNT_NAME: ${AZURE_STORAGE_ACCOUNT_NAME:-devstoreaccount1}
-      AZURE_STORAGE_USE_CONNECTION_STRING: ${AZURE_STORAGE_USE_CONNECTION_STRING:-true}
+      AZURE_STORAGE_USE_CONNECTION_STRING: "true"
   
   ffc-sfd-file-processor-azurite:
     image: mcr.microsoft.com/azure-storage/azurite:3.9.0
