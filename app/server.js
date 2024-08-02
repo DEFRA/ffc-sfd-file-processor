@@ -1,6 +1,7 @@
 const Joi = require('joi')
 const Hapi = require('@hapi/hapi')
 const { serverConfig } = require('./config')
+const { createAzuriteInfrastructure } = require('./blob-storage')
 
 const createServer = async () => {
   const server = Hapi.server({
@@ -25,6 +26,11 @@ const createServer = async () => {
   await server.register(require('./plugins/logging'))
   if (serverConfig.isDev) {
     await server.register(require('blipp'))
+  }
+  try {
+    await createAzuriteInfrastructure()
+  } catch (error) {
+    console.error('Failed to create Azurite infrastructure:', error.message)
   }
 
   return server

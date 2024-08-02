@@ -6,7 +6,7 @@ const schema = Joi.object().keys({
   storageAccount: Joi.string().required(),
   container: Joi.string().default('file-storage'),
   folder: Joi.string().default('files'),
-  useConnectionStr: Joi.boolean().default(false),
+  useConnectionStr: Joi.boolean().default(true),
   createContainers: Joi.boolean().default(true)
 })
 const config = {
