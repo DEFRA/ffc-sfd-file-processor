@@ -1,8 +1,8 @@
 const Wreck = require('@hapi/wreck')
-const config = require('../../config/av-scan')
+const avConfig = require('../../config/index')
 
 async function sendToAvScan (token, fileDetails) {
-  const fetchUrl = `${config.avBaseUrl}syncAv/${fileDetails.collection}/${fileDetails.key}?persistFile=false`
+  const fetchUrl = `${avConfig.avBaseUrl}syncAv/${fileDetails.collection}/${fileDetails.key}?persistFile=false`
   const headers = { Authorization: token }
 
   try {

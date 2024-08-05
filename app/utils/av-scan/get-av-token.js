@@ -1,11 +1,11 @@
 const Wreck = require('@hapi/wreck')
-const config = require('../../config/av-scan')
+const avConfig = require('../../config/index')
 
 const getTokenRequestBody = new URLSearchParams({
-  grant_type: config.grantType,
-  client_id: config.clientId,
-  client_secret: config.clientSecret,
-  scope: config.scope
+  grant_type: avConfig.grantType,
+  client_id: avConfig.clientId,
+  client_secret: avConfig.clientSecret,
+  scope: avConfig.scope
 }).toString()
 
 const getTokenHeaders = {
@@ -14,7 +14,7 @@ const getTokenHeaders = {
 
 async function getAVToken () {
   try {
-    const { res, payload } = await Wreck.post(config.tokenUrl, {
+    const { res, payload } = await Wreck.post(avConfig.tokenUrl, {
       payload: getTokenRequestBody,
       headers: getTokenHeaders
     })
