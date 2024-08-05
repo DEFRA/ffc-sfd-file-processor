@@ -29,7 +29,7 @@ const uploadFile = async (request, h) => {
       }
 
       const uniqueId = uuidv4()
-      const blobName = `${storageConfig.folder}/${uniqueId}-${file.hapi.filename}`
+      const blobName = `${storageConfig.folder}/${uniqueId}`
       const blockBlobClient = containerClient.getBlockBlobClient(blobName)
 
       await blockBlobClient.uploadStream(file)
