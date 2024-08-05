@@ -1,26 +1,55 @@
 const { BlobServiceClient } = require('@azure/storage-blob')
 const { v4: uuidv4 } = require('uuid')
-const config = require('../config/storage')
+const storageConfig = require('../config/storage')
+// const avConfig = require('../config/av-scan')
+// const { getAVToken } = require('../utils/av-scan/get-av-token')
+// const { sendToAvScan } = require('../utils/av-scan/send-to-AV')
 
 const uploadFile = async (request, h) => {
   const { payload } = request
-  const { file } = payload
+  const { files, collection } = payload
+
+  if (!Array.isArray(files)) {
+    return h.response({ error: 'Files should be an array' }).code(400)
+  }
 
   try {
-    const blobServiceClient = BlobServiceClient.fromConnectionString(config.connectionStr)
-    const containerClient = blobServiceClient.getContainerClient(config.container)
+    const blobServiceClient = BlobServiceClient.fromConnectionString(storageConfig.connectionStr)
+    const containerClient = blobServiceClient.getContainerClient(storageConfig.container)
+    // const token = await getAVToken()
+    const results = []
 
-    // Generate a unique identifier
-    const uniqueId = uuidv4()
-    const blobName = `${config.folder}/${uniqueId}-${file.hapi.filename}`
-    const blockBlobClient = containerClient.getBlockBlobClient(blobName)
+    for (const file of files) {
+      // const scanResult = await sendToAvScan(token, file)
+      const scanResult = { isSafe: true }
 
-    await blockBlobClient.uploadStream(file)
+      if (!scanResult.isSafe) {
+        results.push({ error: 'File is malicious and has been rejected', fileName: file.hapi.filename })
+        continue
+      }
 
-    // Return the unique filename to the user
-    return h.response({ message: 'File uploaded successfully', blobName: `${uniqueId}-${file.hapi.filename}` }).code(201)
+      const uniqueId = uuidv4()
+      const blobName = `${storageConfig.folder}/${uniqueId}-${file.hapi.filename}`
+      const blockBlobClient = containerClient.getBlockBlobClient(blobName)
+
+      await blockBlobClient.uploadStream(file)
+
+      const metadata = {
+        filename: file.hapi.filename,
+        blobReference: uniqueId,
+        scheme: payload.scheme,
+        collection
+      }
+
+      // Update blob metadata
+      await blockBlobClient.setMetadata(metadata)
+
+      results.push({ message: 'File uploaded successfully', metadata })
+    }
+
+    return h.response(results).code(201)
   } catch (error) {
-    console.error('Error uploading file:', error.message)
+    console.error('Error uploading files:', error.message)
     return h.response({ error: 'File upload failed', details: error.message }).code(500)
   }
 }
@@ -34,7 +63,7 @@ module.exports = {
       parse: true,
       allow: 'multipart/form-data',
       multipart: true,
-      maxBytes: 30485760 // 30MB
+      maxBytes: 30485760
     }
   },
   handler: uploadFile
