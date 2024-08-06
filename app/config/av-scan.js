@@ -1,3 +1,18 @@
+const Joi = require('joi')
+const { DEVELOPMENT } = require('../constants/enviroments')
+
+const schema = Joi.object().keys({
+  tokenUrl: Joi.string().uri().required(),
+  clientId: Joi.string().required(),
+  clientSecret: Joi.string().required(),
+  scope: Joi.string().required(),
+  grantType: Joi.string().required(),
+  avBaseUrl: Joi.string().uri().required(),
+  connectionStr: Joi.string().required(),
+  container: Joi.string().default('av-container'),
+  folder: Joi.string().default('av-files')
+})
+
 const config = {
   tokenUrl: process.env.AV_ACCESS_TOKEN_URL,
   clientId: process.env.AV_CLIENT_ID,
@@ -10,4 +25,11 @@ const config = {
   folder: process.env.AZURE_STORAGE_FOLDER_NAME
 }
 
-module.exports = config
+const { error, value } = schema.validate(config)
+if (error) {
+  throw new Error(`The AV scan config is invalid. ${error.message}`)
+}
+
+value.isDev = value.env === DEVELOPMENT
+
+module.exports = value
