@@ -1,7 +1,7 @@
 const Wreck = require('@hapi/wreck')
 const avConfig = require('../../config/index')
 
-async function sendToAvScan (token, fileDetails) {
+const sendToAvScan = async (token, fileDetails) => {
   const fetchUrl = `${avConfig.avBaseUrl}syncAv/${fileDetails.collection}/${fileDetails.key}?persistFile=false`
   const headers = { Authorization: token }
 
@@ -26,13 +26,13 @@ async function sendToAvScan (token, fileDetails) {
   }
 }
 
-function parseScanResult (data, fileDetails) {
+const parseScanResult = (data, fileDetails) => {
   const status = data.split(' ')[1]
   const isSafe = status === 'Clean'
   return createScanResult(status, fileDetails, isSafe)
 }
 
-function createScanResult (status, fileDetails, isSafe) {
+const createScanResult = (status, fileDetails, isSafe) => {
   return {
     status,
     key: fileDetails.key,
