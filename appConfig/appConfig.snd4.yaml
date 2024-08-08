@@ -3,3 +3,9 @@
   type: "keyvault"
 - key: GATEWAY_HOST
   value: "https://ffc-sfd.snd4.adp.defra.gov.uk"
+- key: MESSAGE_HOST
+  value: "SNDADPINFSB4401.servicebus.windows.net"
+- key: FILE_RECEIVER_TOPIC_ADDRESS
+  value: "fcp-sfd-file-metadata"
+- key: FILE_RECEIVER_SUBSCRIPTION_ADDRESS
+  value: "fcp-sfd-file-receiver"
