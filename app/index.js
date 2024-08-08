@@ -8,8 +8,8 @@ const init = async () => {
   const server = await createServer()
   await server.start()
   console.log('Server running on %s', server.info.uri)
-  await startMessaging()
   await createAzuriteInfrastructure()
+  await startMessaging()
 }
 
 process.on('unhandledRejection', (err) => {

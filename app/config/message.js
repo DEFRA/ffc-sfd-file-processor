@@ -30,8 +30,8 @@ const config = {
         : undefined
   },
   receiverSubscription: {
-    address: process.env.FILE_PROCESSOR_SUBSCRIPTION_ADDRESS,
-    topic: process.env.FILE_PROCESSOR_TOPIC_ADDRESS,
+    address: process.env.FILE_RECEIVER_SUBSCRIPTION_ADDRESS,
+    topic: process.env.FILE_RECEIVER_TOPIC_ADDRESS,
     type: 'subscription'
   }
 }
