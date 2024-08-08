@@ -56,8 +56,6 @@ module.exports = {
           scheme: payload.scheme,
           collection
         }
-        // Update blob metadata
-        await blockBlobClient.setMetadata(metadata)
         results.push({ message: 'File uploaded successfully', metadata })
       }
       return h.response(results).code(201)
