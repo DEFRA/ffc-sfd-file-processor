@@ -16,13 +16,12 @@ module.exports = {
       parse: true,
       allow: 'multipart/form-data',
       multipart: true,
-      maxBytes: 1530485760
+      maxBytes: 10485760
     }
   },
   handler: async (request, h) => {
     const { payload } = request
     const { files, collection } = payload
-    console.log('Payload:', files)
     const filesArray = Array.isArray(files) ? files : [files]
     try {
       handleFileLimitExceeded(filesArray)
