@@ -3,6 +3,7 @@ const { v4: uuidv4 } = require('uuid')
 const storageConfig = require('../config/storage')
 const { checkFileExtension } = require('../utils/file-checks/extension-check')
 const { handleFileLimitExceeded } = require('../utils/file-checks/lenght-of-files-array-check')
+const { handleMessage } = require('../message')
 // const avConfig = require('../config/av-scan')
 // const { getAVToken } = require('../utils/av-scan/get-av-token')
 // const { sendToAvScan } = require('../utils/av-scan/send-to-AV')
@@ -56,7 +57,13 @@ module.exports = {
           scheme: payload.scheme,
           collection
         }
-        results.push({ message: 'File uploaded successfully', metadata })
+        try {
+          await handleMessage({ body: metadata })
+          results.push({ message: 'File uploaded successfully', metadata })
+        } catch (error) {
+          await blockBlobClient.delete()
+          results.push({ error: `Failed to upload metadata, file: ${file.hapi.filename} is not saved` })
+        }
       }
       return h.response(results).code(201)
     } catch (error) {
