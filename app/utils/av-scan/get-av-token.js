@@ -12,7 +12,7 @@ const getTokenHeaders = {
   'Content-Type': 'application/x-www-form-urlencoded'
 }
 
-async function getAVToken () {
+const getAVToken = async () => {
   try {
     const { res, payload } = await Wreck.post(avConfig.tokenUrl, {
       payload: getTokenRequestBody,

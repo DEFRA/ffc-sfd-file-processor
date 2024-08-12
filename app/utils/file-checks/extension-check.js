@@ -13,12 +13,12 @@ const allowedExtensions = [
   'mov'
 ]
 
-function getFileExtension (filename) {
+const getFileExtension = async (filename) => {
   const parts = filename.split('.')
   return parts.length > 1 ? parts.pop().toLowerCase() : ''
 }
 
-function checkFileExtension (filename) {
+const checkFileExtension = async (filename) => {
   const extension = getFileExtension(filename)
   if (!allowedExtensions.includes(extension)) {
     throw new Error(`Invalid file extension: ${extension}`)
