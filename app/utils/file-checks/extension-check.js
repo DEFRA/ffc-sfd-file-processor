@@ -1,6 +1,4 @@
 const allowedExtensions = [
-  'doc',
-  'docx',
   'xls',
   'xlsx',
   'pdf',
@@ -13,12 +11,12 @@ const allowedExtensions = [
   'mov'
 ]
 
-const getFileExtension = async (filename) => {
+const getFileExtension = (filename) => {
   const parts = filename.split('.')
   return parts.length > 1 ? parts.pop().toLowerCase() : ''
 }
 
-const checkFileExtension = async (filename) => {
+const checkFileExtension = (filename) => {
   const extension = getFileExtension(filename)
   if (!allowedExtensions.includes(extension)) {
     throw new Error(`Invalid file extension: ${extension}`)
