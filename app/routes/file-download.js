@@ -6,6 +6,7 @@ module.exports = {
   path: '/download/{uniqueId}',
   handler: async (request, h) => {
     const { uniqueId } = request.params
+    console.log(`Downloading file with uniqueId: ${uniqueId}`)
     try {
       const blobServiceClient = BlobServiceClient.fromConnectionString(config.connectionStr)
       const containerClient = blobServiceClient.getContainerClient(config.container)

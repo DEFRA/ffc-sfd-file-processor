@@ -8,6 +8,7 @@ module.exports = {
         const response = request.response
         if (response.isBoom) {
           const statusCode = response.output.statusCode
+          const errorMessage = response.output.payload.message
           if (statusCode === 401) {
             return handle401(request, h)
           }
@@ -24,6 +25,13 @@ module.exports = {
               error: 'Not Found',
               message: 'The requested resource could not be found.'
             }).code(404)
+          }
+          if (errorMessage === 'Invalid multipart payload format') {
+            return h.response({
+              statusCode: 413,
+              error: 'Payload Too Large',
+              message: 'The request payload is too large.'
+            }).code(413)
           }
           request.log('error', {
             statusCode,

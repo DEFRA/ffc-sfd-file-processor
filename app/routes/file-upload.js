@@ -16,7 +16,7 @@ module.exports = {
       parse: true,
       allow: 'multipart/form-data',
       multipart: true,
-      maxBytes: 10485760
+      maxBytes: 50 * 1024 * 1024
     }
   },
   handler: async (request, h) => {
