@@ -3,3 +3,9 @@
   type: "keyvault"
 - key: GATEWAY_HOST
   value: "https://ffc-sfd.snd4.adp.defra.gov.uk"
+- key: STORAGE_ACCOUNT_ENDPOINT
+  value: https://ffc-sfd.blob.core.windows.net
+- key: STORAGE_ACCOUNT_NAME
+  value: "ffc-sfd"
+- key: STORAGE_CONTAINER
+  value: "ffc-sfd-file-processor"

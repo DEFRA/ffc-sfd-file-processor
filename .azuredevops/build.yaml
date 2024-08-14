@@ -2,7 +2,7 @@ parameters:
 - name: deployFromFeature
   displayName: "Deploy from Feature Branch"
   type: boolean
-  default: false
+  default: true
 - name: deployConfigOnly
   displayName: "Deploy App Config only"
   type: boolean

@@ -7,15 +7,19 @@ const schema = Joi.object().keys({
   container: Joi.string().default('file-storage'),
   folder: Joi.string().default('files'),
   useConnectionStr: Joi.boolean().default(true),
-  createContainers: Joi.boolean().default(true)
+  createContainers: Joi.boolean().default(true),
+  endpoint: Joi.string().optional(),
+  managedIdentityClientId: Joi.string().optional()
 })
 const config = {
-  connectionStr: process.env.AZURE_STORAGE_CONNECTION_STRING,
-  storageAccount: process.env.AZURE_STORAGE_ACCOUNT_NAME,
-  container: process.env.AZURE_STORAGE_CONTAINER,
-  folder: process.env.AZURE_STORAGE_FOLDER,
-  useConnectionStr: process.env.AZURE_STORAGE_USE_CONNECTION_STRING,
-  createContainers: process.env.AZURE_STORAGE_CREATE_CONTAINERS
+  connectionStr: process.env.STORAGE_CONNECTION_STRING,
+  storageAccount: process.env.STORAGE_ACCOUNT_NAME,
+  container: process.env.STORAGE_CONTAINER,
+  folder: process.env.STORAGE_FOLDER,
+  useConnectionStr: process.env.STORAGE_USE_CONNECTION_STRING,
+  createContainers: process.env.STORAGE_CREATE_CONTAINERS,
+  endpoint: process.env.STORAGE_ACCOUNT_ENDPOINT,
+  managedIdentityClientId: process.env.AZURE_CLIENT_ID
 }
 const { error, value } = schema.validate(config)
 if (error) {

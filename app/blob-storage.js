@@ -10,8 +10,8 @@ if (config.useConnectionStr) {
   blobServiceClient = BlobServiceClient.fromConnectionString(config.connectionStr)
 } else {
   console.log('Using DefaultAzureCredential for BlobServiceClient')
-  const uri = `https://${config.storageAccount}.blob.core.windows.net`
-  blobServiceClient = new BlobServiceClient(uri, new DefaultAzureCredential())
+  const credential = new DefaultAzureCredential({ managedIdentityClientId: cosmosConfig.managedIdentityClientId })
+  blobServiceClient = new BlobServiceClient(config.endpoint, credential)
 }
 
 const container = blobServiceClient.getContainerClient(config.container)
