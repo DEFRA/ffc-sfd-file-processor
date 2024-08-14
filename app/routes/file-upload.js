@@ -54,6 +54,8 @@ module.exports = {
           filename: file.hapi.filename,
           blobReference: uniqueId,
           scheme: payload.scheme,
+          sbi: payload.organisation,
+          crn: payload.crn,
           collection
         }
         try {
