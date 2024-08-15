@@ -9,3 +9,5 @@
   value: "ffc-sfd"
 - key: STORAGE_CONTAINER
   value: "ffc-sfd-file-processor"
+- key: AHWP_HOST
+  value: "https://ffc-sfd-ahwp-stub.snd4.adp.defra.gov.uk"
