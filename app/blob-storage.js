@@ -1,29 +1,29 @@
 const { DefaultAzureCredential } = require('@azure/identity')
 const { BlobServiceClient } = require('@azure/storage-blob')
-const config = require('./config').storageConfig
+const { storageConfig } = require('../config')
 
 let blobServiceClient
 let containersInitialised
 
-if (config.useConnectionStr) {
+if (storageConfig.useConnectionStr) {
   console.log('Using connection string for BlobServiceClient')
-  blobServiceClient = BlobServiceClient.fromConnectionString(config.connectionStr)
+  blobServiceClient = BlobServiceClient.fromConnectionString(storageConfig.connectionStr)
 } else {
   console.log('Using DefaultAzureCredential for BlobServiceClient')
-  const credential = new DefaultAzureCredential({ managedIdentityClientId: cosmosConfig.managedIdentityClientId })
-  blobServiceClient = new BlobServiceClient(config.endpoint, credential)
+  const credential = new DefaultAzureCredential({ managedIdentityClientId: storageConfig.managedIdentityClientId })
+  blobServiceClient = new BlobServiceClient(storageConfig.endpoint, credential)
 }
 
-const container = blobServiceClient.getContainerClient(config.container)
+const container = blobServiceClient.getContainerClient(storageConfig.container)
 
 const initialiseFolders = async () => {
   const placeHolderText = 'Placeholder'
-  const client = container.getBlockBlobClient(`${config.folder}/default.txt`)
+  const client = container.getBlockBlobClient(`${storageConfig.folder}/default.txt`)
   await client.upload(placeHolderText, placeHolderText.length)
 }
 
 const initialiseContainers = async () => {
-  if (config.createContainers) {
+  if (storageConfig.createContainers) {
     console.log('Making sure blob containers exist')
     await container.createIfNotExists()
   }
@@ -35,7 +35,7 @@ const getOutboundBlobClient = async (filename) => {
   if (!containersInitialised) {
     await initialiseContainers()
   }
-  return container.getBlockBlobClient(`${config.folder}/${filename}`)
+  return container.getBlockBlobClient(`${storageConfig.folder}/${filename}`)
 }
 
 const createAzuriteInfrastructure = async () => {
