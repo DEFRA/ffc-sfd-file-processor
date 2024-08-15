@@ -1,5 +1,5 @@
 const Joi = require('joi')
-const { DEVELOPMENT } = require('../constants/enviroments')
+const { DEVELOPMENT, TEST, PRODUCTION } = require('../constants/enviroments')
 
 const schema = Joi.object().keys({
   connectionStr: Joi.string().required(),
@@ -21,7 +21,12 @@ const config = {
   endpoint: process.env.STORAGE_ACCOUNT_ENDPOINT,
   managedIdentityClientId: process.env.AZURE_CLIENT_ID
 }
-const { error, value } = schema.validate(config)
+const { error, value } = schema.validate(config, { abortEarly: false })
+
+value.isDev = (process.env.NODE_ENV === DEVELOPMENT || process.env.NODE_ENV === TEST)
+value.isTest = process.env.NODE_ENV === TEST
+value.isProd = process.env.NODE_ENV === PRODUCTION
+
 if (error) {
   throw new Error(`The server config is invalid. ${error.message}`)
 }
