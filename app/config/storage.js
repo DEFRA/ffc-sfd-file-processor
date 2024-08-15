@@ -2,7 +2,7 @@ const Joi = require('joi')
 const { DEVELOPMENT, TEST, PRODUCTION } = require('../constants/enviroments')
 
 const schema = Joi.object().keys({
-  connectionStr: Joi.string().required(),
+  connectionStr: Joi.string().optional(),
   storageAccount: Joi.string().required(),
   container: Joi.string().default('file-storage'),
   folder: Joi.string().default('files'),
@@ -28,7 +28,7 @@ value.isTest = process.env.NODE_ENV === TEST
 value.isProd = process.env.NODE_ENV === PRODUCTION
 
 if (error) {
-  throw new Error(`The server config is invalid. ${error.message}`)
+  throw new Error(`The storage config is invalid. ${error.message}`)
 }
 
 module.exports = value
