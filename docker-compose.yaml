@@ -14,8 +14,8 @@ services:
       GATEWAY_HOST: ${GATEWAY_HOST:-http://localhost:3000}
       DATA_HOST: ${DATA_HOST:-http://ffc-sfd-data:3004/graphql}
       AHWP_HOST: ${AHWP_HOST:-http://localhost:3010}
-      AZURE_STORAGE_ACCOUNT_NAME: ${AZURE_STORAGE_ACCOUNT_NAME:-devstoreaccount1}
-      AZURE_STORAGE_USE_CONNECTION_STRING: "true"
+      STORAGE_ACCOUNT_NAME: ${STORAGE_ACCOUNT_NAME:-devstoreaccount1}
+      STORAGE_USE_CONNECTION_STRING: "true"
       MESSAGE_HOST: ${MESSAGE_HOST}
       MESSAGE_USER: ${MESSAGE_USER}
       MESSAGE_PASSWORD: ${MESSAGE_PASSWORD}

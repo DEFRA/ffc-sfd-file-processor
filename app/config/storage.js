@@ -3,10 +3,10 @@ const { DEVELOPMENT, TEST, PRODUCTION } = require('../constants/enviroments')
 
 const schema = Joi.object().keys({
   connectionStr: Joi.string().optional(),
-  storageAccount: Joi.string().required(),
+  storageAccount: Joi.string().optional(),
   container: Joi.string().default('file-storage'),
   folder: Joi.string().default('files'),
-  useConnectionStr: Joi.boolean().default(false).optional(),
+  useConnectionStr: Joi.boolean().default(true).optional(),
   createContainers: Joi.boolean().default(true),
   endpoint: Joi.string().optional(),
   managedIdentityClientId: Joi.string().optional()

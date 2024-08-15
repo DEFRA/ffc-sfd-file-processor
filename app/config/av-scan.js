@@ -20,9 +20,9 @@ const config = {
   scope: process.env.AV_SCOPE,
   grantType: process.env.AV_AUTH_GRANT_TYPE,
   avBaseUrl: process.env.AV_BASE_URL,
-  connectionStr: process.env.AZURE_STORAGE_CONNECTION_STRING,
-  container: process.env.AZURE_STORAGE_CONTAINER_NAME,
-  folder: process.env.AZURE_STORAGE_FOLDER_NAME
+  connectionStr: process.env.STORAGE_CONNECTION_STRING,
+  container: process.env.STORAGE_CONTAINER_NAME,
+  folder: process.env.STORAGE_FOLDER_NAME
 }
 
 const { error, value } = schema.validate(config)
