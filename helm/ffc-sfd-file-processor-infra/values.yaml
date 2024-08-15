@@ -6,3 +6,4 @@ storageAccounts:
       - name: ffc-sfd-file-processor
         roleAssignments:
           - roleName: 'DataWriter'
+          - roleName: 'DataReader'
