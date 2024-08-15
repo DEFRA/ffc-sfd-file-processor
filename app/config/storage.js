@@ -30,6 +30,5 @@ value.isProd = process.env.NODE_ENV === PRODUCTION
 if (error) {
   throw new Error(`The server config is invalid. ${error.message}`)
 }
-value.isDev = value.env === DEVELOPMENT
 
 module.exports = value
