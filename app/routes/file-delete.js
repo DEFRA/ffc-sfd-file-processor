@@ -1,4 +1,4 @@
-const { BlobServiceClient } = require('@azure/storage-blob')
+const { BlobServiceClient } = require('../blob-storage')
 const storageConfig = require('../config/storage')
 const deleteMetadataFromCosmos = require('../message/delete-metadata-from-cosmos')
 
