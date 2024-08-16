@@ -1,4 +1,4 @@
-const { BlobServiceClient } = require('../blob-storage')
+const { blobServiceClient } = require('../blob-storage')
 const { v4: uuidv4 } = require('uuid')
 const storageConfig = require('../config/storage')
 const { checkFileExtension } = require('../utils/file-checks/extension-check')
@@ -29,7 +29,6 @@ module.exports = {
       return h.response({ error: error.message }).code(400)
     }
     try {
-      const blobServiceClient = BlobServiceClient.fromConnectionString(storageConfig.connectionStr)
       const containerClient = blobServiceClient.getContainerClient(storageConfig.container)
       // const token = await getAVToken()
       const results = []
