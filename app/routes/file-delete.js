@@ -1,4 +1,4 @@
-const { BlobServiceClient } = require('../blob-storage')
+const { blobServiceClient } = require('../blob-storage')
 const storageConfig = require('../config/storage')
 const deleteMetadataFromCosmos = require('../message/delete-metadata-from-cosmos')
 
@@ -9,7 +9,6 @@ module.exports = {
     const { uniqueId } = request.params
 
     try {
-      const blobServiceClient = BlobServiceClient.fromConnectionString(storageConfig.connectionStr)
       const containerClient = blobServiceClient.getContainerClient(storageConfig.container)
       const blobName = `${storageConfig.folder}/${uniqueId}`
       const blockBlobClient = containerClient.getBlockBlobClient(blobName)
