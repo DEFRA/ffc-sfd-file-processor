@@ -1,4 +1,4 @@
-const { BlobServiceClient } = require('@azure/storage-blob')
+const { BlobServiceClient } = require('../blob-storage')
 const { v4: uuidv4 } = require('uuid')
 const storageConfig = require('../config/storage')
 const { checkFileExtension } = require('../utils/file-checks/extension-check')
