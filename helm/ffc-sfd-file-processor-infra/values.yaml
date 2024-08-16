@@ -2,8 +2,8 @@
 # You may create Queues, Topics, Subscriptions, Storage Accounts, Databases and Role Assignments on these here.
 storageAccounts:
   - name: sfd
+    roleAssignments:
+      - roleName: 'DataWriter'
+      - roleName: 'DataReader'
     blobContainers:  
       - name: ffc-sfd-file-processor
-        roleAssignments:
-          - roleName: 'DataWriter'
-          - roleName: 'DataReader'
