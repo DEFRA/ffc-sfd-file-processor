@@ -7,3 +7,9 @@ storageAccounts:
       - roleName: 'DataReader'
     blobContainers:  
       - name: ffc-sfd-file-processor
+
+namespaceTopics:
+  - name: 'file-metadata'
+    owner: 'no'
+    roleAssignments:
+      - roleName: 'TopicSender'
