@@ -2,7 +2,7 @@ const { MessageSender } = require('ffc-messaging')
 const { senderConfig } = require('../config')
 
 const sendToFileReceiver = async (message) => {
-  const sender = new MessageSender(senderConfig.senderTopic)
+  const sender = new MessageSender(senderConfig)
   try {
     await sender.sendMessage({
       body: message.body,
