@@ -26,6 +26,13 @@ const uploadFileToBlob = async (file, payload) => {
   return { blockBlobClient, metadata }
 }
 
+const deleteBlob = async (blockBlobClient) => {
+  if (blockBlobClient) {
+    await blockBlobClient.delete()
+  }
+}
+
 module.exports = {
-  uploadFileToBlob
+  uploadFileToBlob,
+  deleteBlob
 }

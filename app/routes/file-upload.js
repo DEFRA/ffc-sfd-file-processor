@@ -1,7 +1,7 @@
 const { checkFileExtension } = require('../utils/file-checks/extension-check')
 const { handleFileLimitExceeded } = require('../utils/file-checks/lenght-of-files-array-check')
 const { handleMessage } = require('../message')
-const { uploadFileToBlob } = require('../message/upload-file-to-blob')
+const { uploadFileToBlob, deleteBlob } = require('../message/upload-file-to-blob')
 
 module.exports = {
   method: 'POST',
@@ -17,36 +17,34 @@ module.exports = {
   },
   handler: async (request, h) => {
     const { payload } = request
-    const { files, collection } = payload
+    const { files } = payload
     const filesArray = Array.isArray(files) ? files : [files]
+    const results = []
+
     try {
       handleFileLimitExceeded(filesArray)
-    } catch (error) {
-      return h.response({ error: error.message }).code(400)
-    }
-    try {
-      const results = []
+
       for (const file of filesArray) {
+        let blockBlobClient
         try {
           checkFileExtension(file.hapi.filename)
+          const scanResult = { isSafe: true }
+          if (!scanResult.isSafe) {
+            results.push({ error: 'File is malicious and has been rejected', fileName: file.hapi.filename })
+            continue
+          }
+          const uploadResult = await uploadFileToBlob(file, payload)
+          blockBlobClient = uploadResult.blockBlobClient
+          await handleMessage({ body: uploadResult.metadata })
+          results.push({ message: 'File uploaded successfully', metadata: uploadResult.metadata })
         } catch (error) {
-          results.push({ error: error.message, fileName: file.hapi.filename })
-          continue
-        }
-        const scanResult = { isSafe: true }
-        if (!scanResult.isSafe) {
-          results.push({ error: 'File is malicious and has been rejected', fileName: file.hapi.filename })
-          continue
-        }
-        try {
-          const { blockBlobClient, metadata } = await uploadFileToBlob(file, payload)
-          await handleMessage({ body: metadata })
-          results.push({ message: 'File uploaded successfully', metadata })
-        } catch (error) {
-          await blockBlobClient.delete()
+          if (blockBlobClient) {
+            await deleteBlob(blockBlobClient)
+          }
           results.push({ error: `Failed to upload metadata, file: ${file.hapi.filename} is not saved` })
         }
       }
+
       return h.response(results).code(201)
     } catch (error) {
       console.error('Error uploading files:', error.message)
