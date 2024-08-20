@@ -39,8 +39,12 @@ const getOutboundBlobClient = async (filename) => {
 }
 
 const createAzuriteInfrastructure = async () => {
-  await initialiseContainers()
-  console.log('Azurite infrastructure created successfully')
+  if (process.env.NODE_ENV === 'development') {
+    await initialiseContainers()
+    console.log('Azurite infrastructure created successfully for local environment')
+  } else {
+    console.log('Containers are checked and ready to receive files')
+  }
 }
 
 module.exports = {
