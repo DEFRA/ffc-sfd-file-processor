@@ -1,5 +1,5 @@
 const { handleFileLimitExceeded } = require('../utils/file-checks/lenght-of-files-array-check')
-const { handleFileUpload } = require('../storage/handle-file-upload')
+const { handleFileUpload } = require('../storage')
 
 module.exports = {
   method: 'POST',

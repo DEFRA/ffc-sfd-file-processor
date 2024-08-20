@@ -1,6 +1,6 @@
-const { blobServiceClient } = require('../blob-storage')
+const { blobServiceClient } = require('../storage')
 const storageConfig = require('../config/storage')
-const deleteMetadataFromCosmos = require('../storage/delete-metadata-from-cosmos')
+const { deleteMetadataFromCosmos } = require('../storage')
 
 module.exports = {
   method: 'DELETE',

@@ -1,11 +1,16 @@
 const { deleteBlob } = require('./delete-blob')
 const { deleteMetadataFromCosmos } = require('./delete-metadata-from-cosmos')
-const { handleFileupload } = require('./handle-file-upload')
-const { uploadtoBlob } = require('./upload-to-blob')
+const { handleFileUpload } = require('./handle-file-upload')
+const { uploadFileToBlob } = require('./upload-file-to-blob')
+const { initialiseContainers, blobServiceClient, getOutboundBlobClient, createAzuriteInfrastructure } = require('./blob-storage')
 
 module.exports = {
   deleteBlob,
   deleteMetadataFromCosmos,
-  handleFileupload,
-  uploadtoBlob
+  handleFileUpload,
+  uploadFileToBlob,
+  initialiseContainers,
+  blobServiceClient,
+  getOutboundBlobClient,
+  createAzuriteInfrastructure
 }

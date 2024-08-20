@@ -1,4 +1,4 @@
-const { blobServiceClient } = require('../blob-storage')
+const { blobServiceClient } = require('../storage')
 const config = require('../config/storage')
 
 module.exports = {

@@ -26,4 +26,4 @@ const deleteMetadataFromCosmos = async (request, blobReference) => {
   }
 }
 
-module.exports = deleteMetadataFromCosmos
+module.exports = { deleteMetadataFromCosmos }
