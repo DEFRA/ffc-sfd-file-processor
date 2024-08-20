@@ -1,7 +1,8 @@
 const { checkFileExtension } = require('../utils/file-checks/extension-check')
 const { handleFileLimitExceeded } = require('../utils/file-checks/lenght-of-files-array-check')
 const { handleMessage } = require('../message')
-const { uploadFileToBlob, deleteBlob } = require('../message/upload-file-to-blob')
+const { uploadFileToBlob } = require('../message/upload-file-to-blob')
+const { deleteBlob } = require('../message/delete-blob')
 
 module.exports = {
   method: 'POST',
