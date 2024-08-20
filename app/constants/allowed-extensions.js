@@ -1,0 +1,14 @@
+module.exports = {
+  allowedExtensions: [
+    'xls',
+    'xlsx',
+    'pdf',
+    'jpg',
+    'jpeg',
+    'png',
+    'mpg',
+    'mp4',
+    'wmv',
+    'mov'
+  ]
+}

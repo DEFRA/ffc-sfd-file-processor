@@ -1,15 +1,4 @@
-const allowedExtensions = [
-  'xls',
-  'xlsx',
-  'pdf',
-  'jpg',
-  'jpeg',
-  'png',
-  'mpg',
-  'mp4',
-  'wmv',
-  'mov'
-]
+const { allowedExtensions } = require('../../constants/allowed-extensions')
 
 const getFileExtension = (filename) => {
   const parts = filename.split('.')

@@ -1,4 +1,4 @@
-const MAX_FILES = 3
+const { MAX_FILES } = require('../../constants/max-files')
 
 const handleFileLimitExceeded = async (files) => {
   if (files.length > MAX_FILES) {

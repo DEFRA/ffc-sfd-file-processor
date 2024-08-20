@@ -1,12 +1,8 @@
-const { blobServiceClient } = require('../blob-storage')
-const { v4: uuidv4 } = require('uuid')
-const storageConfig = require('../config/storage')
 const { checkFileExtension } = require('../utils/file-checks/extension-check')
 const { handleFileLimitExceeded } = require('../utils/file-checks/lenght-of-files-array-check')
 const { handleMessage } = require('../message')
-// const avConfig = require('../config/av-scan')
-// const { getAVToken } = require('../utils/av-scan/get-av-token')
-// const { sendToAvScan } = require('../utils/av-scan/send-to-AV')
+const { uploadFileToBlob } = require('../message/upload-file-to-blob')
+
 module.exports = {
   method: 'POST',
   path: '/upload',
@@ -29,8 +25,6 @@ module.exports = {
       return h.response({ error: error.message }).code(400)
     }
     try {
-      const containerClient = blobServiceClient.getContainerClient(storageConfig.container)
-      // const token = await getAVToken()
       const results = []
       for (const file of filesArray) {
         try {
@@ -39,29 +33,13 @@ module.exports = {
           results.push({ error: error.message, fileName: file.hapi.filename })
           continue
         }
-        // const scanResult = await sendToAvScan(token, file)
         const scanResult = { isSafe: true }
         if (!scanResult.isSafe) {
           results.push({ error: 'File is malicious and has been rejected', fileName: file.hapi.filename })
           continue
         }
-        const uniqueId = uuidv4()
-        const blobName = `${storageConfig.folder}/${uniqueId}`
-        const blockBlobClient = containerClient.getBlockBlobClient(blobName)
-        await blockBlobClient.uploadStream(file)
-        const metadata = {
-          filename: file.hapi.filename,
-          blobReference: uniqueId,
-          scheme: payload.scheme,
-          sbi: payload.sbi,
-          crn: payload.crn,
-          collection
-        }
-        const blobMetadata = {
-          filename: file.hapi.filename
-        }
-        await blockBlobClient.setMetadata(blobMetadata)
         try {
+          const { blockBlobClient, metadata } = await uploadFileToBlob(file, payload)
           await handleMessage({ body: metadata })
           results.push({ message: 'File uploaded successfully', metadata })
         } catch (error) {
