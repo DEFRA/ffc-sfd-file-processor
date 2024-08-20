@@ -57,7 +57,10 @@ module.exports = {
           crn: payload.crn,
           collection
         }
-        await blockBlobClient.setMetadata(metadata.filename)
+        const blobMetadata = {
+          filename: file.hapi.filename
+        }
+        await blockBlobClient.setMetadata(blobMetadata)
         try {
           await handleMessage({ body: metadata })
           results.push({ message: 'File uploaded successfully', metadata })
