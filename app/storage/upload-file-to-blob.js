@@ -1,6 +1,6 @@
 const { blobServiceClient } = require('./blob-storage')
 const { v4: uuidv4 } = require('uuid')
-const storageConfig = require('../config/storage')
+const { storageConfig } = require('../config')
 
 const uploadFileToBlob = async (file, payload) => {
   const containerClient = blobServiceClient.getContainerClient(storageConfig.container)

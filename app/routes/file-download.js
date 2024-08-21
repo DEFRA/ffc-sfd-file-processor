@@ -1,5 +1,5 @@
 const { blobServiceClient } = require('../storage')
-const config = require('../config/storage')
+const { storageConfig } = require('../config')
 
 module.exports = {
   method: 'GET',
@@ -8,9 +8,9 @@ module.exports = {
     const { uniqueId } = request.params
     console.log(`Downloading file with uniqueId: ${uniqueId}`)
     try {
-      const containerClient = blobServiceClient.getContainerClient(config.container)
+      const containerClient = blobServiceClient.getContainerClient(storageConfig.container)
 
-      const blobName = `${config.folder}/${uniqueId}`
+      const blobName = `${storageConfig.folder}/${uniqueId}`
 
       const blockBlobClient = containerClient.getBlockBlobClient(blobName)
 

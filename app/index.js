@@ -1,7 +1,7 @@
 require('./insights').setup()
 require('log-timestamp')
 const { createServer } = require('./server')
-const { createAzuriteInfrastructure } = require('./storage/blob-storage')
+const { createAzuriteInfrastructure } = require('./storage')
 
 const init = async () => {
   const server = await createServer()

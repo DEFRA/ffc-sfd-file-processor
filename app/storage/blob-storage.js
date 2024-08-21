@@ -1,6 +1,7 @@
 const { DefaultAzureCredential } = require('@azure/identity')
 const { BlobServiceClient } = require('@azure/storage-blob')
 const { storageConfig } = require('../config')
+const { DEVELOPMENT } = require('../constants/enviroments')
 
 let blobServiceClient
 let containersInitialised
@@ -39,7 +40,7 @@ const getOutboundBlobClient = async (filename) => {
 }
 
 const createAzuriteInfrastructure = async () => {
-  if (process.env.NODE_ENV === 'development') {
+  if (process.env.NODE_ENV === DEVELOPMENT) {
     await initialiseContainers()
     console.log('Azurite infrastructure created successfully for local environment')
   } else {
