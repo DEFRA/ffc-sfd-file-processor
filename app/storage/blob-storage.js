@@ -39,12 +39,17 @@ const getOutboundBlobClient = async (filename) => {
   return container.getBlockBlobClient(`${storageConfig.folder}/${filename}`)
 }
 
-const createAzuriteInfrastructure = async () => {
-  if (process.env.NODE_ENV === DEVELOPMENT) {
-    await initialiseContainers()
-    console.log('Azurite infrastructure created successfully for local environment')
-  } else {
-    console.log('Containers are checked and ready to receive files')
+const connectToBlob = async () => {
+  try {
+    if (process.env.NODE_ENV === DEVELOPMENT) {
+      await initialiseContainers()
+      console.log('Azurite infrastructure created successfully for local environment')
+    } else {
+      initialiseFolders()
+      console.log('Containers are checked and ready to receive files')
+    }
+  } catch (error) {
+    console.error('Error connecting to blob:', error.message)
   }
 }
 
@@ -52,5 +57,5 @@ module.exports = {
   initialiseContainers,
   blobServiceClient,
   getOutboundBlobClient,
-  createAzuriteInfrastructure
+  connectToBlob
 }
