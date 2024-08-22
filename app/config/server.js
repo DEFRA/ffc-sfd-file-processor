@@ -8,7 +8,6 @@ const schema = Joi.object().keys({
   authHost: Joi.string().required(),
   gatewayHost: Joi.string().required(),
   dataHost: Joi.string().required(),
-  ahwpHost: Joi.string().required(),
   refreshTokens: Joi.boolean().default(false)
 })
 const config = {
@@ -18,7 +17,6 @@ const config = {
   authHost: process.env.AUTH_HOST,
   gatewayHost: process.env.GATEWAY_HOST,
   dataHost: process.env.DATA_HOST,
-  ahwpHost: process.env.AHWP_HOST,
   refreshTokens: process.env.REFRESH_TOKENS
 }
 const { error, value } = schema.validate(config)

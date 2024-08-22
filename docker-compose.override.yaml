@@ -2,7 +2,7 @@
 # to provide dependencies and expose ports for local testing
 
 services:
-  ffc-sfd-file-processor:
+   ffc-sfd-file-processor:
     build:
       target: development
     image: ffc-sfd-file-processor-development
@@ -15,15 +15,4 @@ services:
       - ./test:/home/node/test
       - ./scripts:/home/node/scripts
       - ./package.json:/home/node/package.json
-    environment:
-      STORAGE_CONNECTION_STRING: DefaultEndpointsProtocol=http;AccountName=devstoreaccount1;AccountKey=Eby8vdM02xNOcqFlqUwJPLlmEtlCDXJ1OUzFT50uSRZ6IFsuFq2UVErCz4I6tq/K1SZFPTOtr/KBHBeksoGMGw==;BlobEndpoint=http://ffc-sfd-file-processor-azurite:10000/devstoreaccount1;
-
-  ffc-sfd-file-processor-azurite:
-    volumes:
-      - azurite_data:/data
-    ports:
-      - "10019:10000"
-
-volumes:
-  azurite_data:    
       

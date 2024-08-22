@@ -4,8 +4,6 @@ services:
       context: .
       target: production
     image: ffc-sfd-file-processor
-    depends_on:
-      - ffc-sfd-file-processor-azurite
     container_name: ffc-sfd-file-processor
     environment:
       APPINSIGHTS_CLOUDROLE: ffc-sfd-file-processor-local
@@ -14,16 +12,3 @@ services:
       GATEWAY_HOST: ${GATEWAY_HOST:-http://localhost:3000}
       DATA_HOST: ${DATA_HOST:-http://ffc-sfd-data:3004/graphql}
       AHWP_HOST: ${AHWP_HOST:-http://localhost:3010}
-      STORAGE_ACCOUNT_NAME: ${STORAGE_ACCOUNT_NAME:-devstoreaccount1}
-      STORAGE_USE_CONNECTION_STRING: "true"
-      MESSAGE_HOST: ${MESSAGE_HOST}
-      MESSAGE_USER: ${MESSAGE_USER}
-      MESSAGE_PASSWORD: ${MESSAGE_PASSWORD}
-      FILE_RECEIVER_TOPIC_ADDRESS: ${FILE_RECEIVER_TOPIC_ADDRESS}-${DEV_SUFFIX}
-      FILE_RECEIVER_SUBSCRIPTION_ADDRESS: ${FILE_RECEIVER_SUBSCRIPTION_ADDRESS}-${DEV_SUFFIX}
-  
-  ffc-sfd-file-processor-azurite:
-    image: mcr.microsoft.com/azure-storage/azurite:3.31.0
-    command: "azurite-blob --loose --blobHost 0.0.0.0"
-    labels:
-      com.docker.compose.pay.role: ffc-sfd-file-processor-azurite
