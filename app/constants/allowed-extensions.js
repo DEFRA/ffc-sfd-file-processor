@@ -9,6 +9,7 @@ module.exports = {
     'mpg',
     'mp4',
     'wmv',
-    'mov'
+    'mov',
+    'txt'
   ]
 }
