@@ -6,7 +6,7 @@
 - key: STORAGE_ACCOUNT_ENDPOINT
   value: https://ffcsfdstorage01.blob.core.windows.net/
 - key: STORAGE_ACCOUNT_NAME
-  value: "ffc-sfd"
+  value: "ffcsfdstorage01"
 - key: STORAGE_CONTAINER
   value: "test"
 - key: AHWP_HOST
