@@ -23,6 +23,7 @@ services:
       FILE_RECEIVER_SUBSCRIPTION_ADDRESS: ${FILE_RECEIVER_SUBSCRIPTION_ADDRESS}-${DEV_SUFFIX}
       AV_SCAN_SUBSCRIPTION_ADDRESS: ffc-sfd-crm-sd
       AV_SCAN_TOPIC_ADDRESS: ffc-sfd-crm-messages-sd
+      SFD_EVENT_GRID_KEY: ${SFD_EVENT_GRID_KEY}
   
   ffc-sfd-file-processor-azurite:
     image: mcr.microsoft.com/azure-storage/azurite:3.31.0

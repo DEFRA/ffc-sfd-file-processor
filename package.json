@@ -1,6 +1,6 @@
 {
   "name": "ffc-sfd-file-processor",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "description": "This service is a prototype and research for file upload/download functionality for single front door",
   "homepage": "github.com?owner=defra&repo=ffc-sfd-file-processor&organization=defra",
   "main": "app/index.js",

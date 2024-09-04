@@ -24,6 +24,16 @@ services:
     ports:
       - "10019:10000"
 
+  ngrok:
+    image: ngrok/ngrok:latest
+    command: 
+      - "http"
+      - "ffc-sfd-file-processor-development:3019"
+    environment:
+      NGROK_AUTHTOKEN: ${NGROK_AUTHTOKEN}
+    ports:
+      - "4040:4040"
+
 volumes:
-  azurite_data:    
+  azurite_data: 
       

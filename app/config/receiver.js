@@ -14,7 +14,8 @@ const schema = Joi.object({
     address: Joi.string(),
     topic: Joi.string(),
     type: Joi.string().allow('subscription')
-  }
+  },
+  eventGridKey: Joi.string().optional()
 })
 
 const config = {
@@ -33,7 +34,8 @@ const config = {
     address: process.env.AV_SCAN_SUBSCRIPTION_ADDRESS,
     topic: process.env.AV_SCAN_TOPIC_ADDRESS,
     type: 'subscription'
-  }
+  },
+  eventGridKey: process.env.EVENT_GRID_KEY
 }
 
 const result = schema.validate(config, {
