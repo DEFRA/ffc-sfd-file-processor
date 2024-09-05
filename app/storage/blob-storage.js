@@ -11,6 +11,7 @@ if (storageConfig.useConnectionStr) {
   blobServiceClient = BlobServiceClient.fromConnectionString(storageConfig.connectionStr)
 } else {
   console.log('Using DefaultAzureCredential for BlobServiceClient')
+  console.log('Managed Identity Client Id:', storageConfig.managedIdentityClientId)
   const credential = new DefaultAzureCredential({ managedIdentityClientId: storageConfig.managedIdentityClientId })
   blobServiceClient = new BlobServiceClient(storageConfig.endpoint, credential)
 }

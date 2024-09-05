@@ -1,4 +1,4 @@
-const { SFD_EVENT_GRID_KEY } = require('../config')
+const { getAsync, setAsync, keysAsync, delAsync } = require('../redis/redis-client')
 
 module.exports = {
   method: 'POST',
@@ -11,23 +11,44 @@ module.exports = {
     }
   },
   handler: async (request, h) => {
-    const accessKey = request.query.access_key
-
-    // Verify the access key
-    if (accessKey !== SFD_EVENT_GRID_KEY) {
-      return h.response({ status: 'Unauthorized' }).code(401)
-    }
-
     const { payload } = request
-    console.log('Received Webhook event:', payload)
+    console.log('Received Webhook event:', JSON.stringify(payload, null, 2))
 
-    // Handle the validation request
-    if (payload && payload.validationCode) {
-      console.log('Received validation request')
-      return h.response({ validationResponse: payload.validationCode }).code(200)
+    if (Array.isArray(payload) && payload.length > 0) {
+      const event = payload[0]
+      console.log('Event data:', JSON.stringify(event, null, 2))
+
+      // Handle the validation request
+      if (event.eventType === 'Microsoft.EventGrid.SubscriptionValidationEvent') {
+        console.log('Received validation request')
+        return h.response({ validationResponse: event.data.validationCode }).code(200)
+      }
+
+      // Handle other events
+      const blobUri = event.data && event.data.blobUri
+      const correlationId = blobUri ? blobUri.split('/').pop() : null
+      console.log(`Extracted correlationId: ${correlationId}`)
+
+      if (!correlationId) {
+        console.error('correlationId is undefined')
+        return h.response({ status: 'error', message: 'correlationId is undefined' }).code(400)
+      }
+
+      // Look up the file metadata using the correlationId
+      const fileMetadata = await getAsync(correlationId)
+
+      if (fileMetadata) {
+        const metadata = JSON.parse(fileMetadata)
+        // Update the file metadata with the scan results
+        metadata.scanResult = event.data.scanResultType
+        metadata.scanDetails = event.data.scanResultDetails
+        await setAsync(correlationId, JSON.stringify(metadata))
+        console.log('Updated file metadata:', metadata)
+      } else {
+        console.log('No matching file metadata found for correlationId:', correlationId)
+      }
     }
 
-    // Handle other events
     return h.response({ status: 'success' }).code(200)
   }
 }
