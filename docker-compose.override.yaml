@@ -16,7 +16,7 @@ services:
       - ./scripts:/home/node/scripts
       - ./package.json:/home/node/package.json
     environment:
-      STORAGE_CONNECTION_STRING: DefaultEndpointsProtocol=https;AccountName=ffcsfdstorage01;AccountKey=o4mMaD6e3KYDzNoju9pubZyavnlK3x2zz8DWKAFqzHTGGxfeAmy8JW8DcHpN4ty23sW5SfkAPVBS+AStVIiCcQ==;EndpointSuffix=core.windows.net;
+      STORAGE_CONNECTION_STRING: ${STORAGE_CONNECTION_STRING}
 
   ffc-sfd-file-processor-azurite:
     volumes:
