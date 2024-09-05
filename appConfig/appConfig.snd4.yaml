@@ -4,11 +4,11 @@
 - key: GATEWAY_HOST
   value: "https://ffc-sfd.snd4.adp.defra.gov.uk"
 - key: STORAGE_ACCOUNT_ENDPOINT
-  value: https://sndadpinfst4401sfd.blob.core.windows.net/
+  value: https://ffcsfdstorage01.blob.core.windows.net/
 - key: STORAGE_ACCOUNT_NAME
-  value: "ffc-sfd"
+  value: "ffcsfdstorage01"
 - key: STORAGE_CONTAINER
-  value: "ffc-sfd-file-processor"
+  value: "test"
 - key: AHWP_HOST
   value: "https://ffc-sfd-ahwp-stub.snd4.adp.defra.gov.uk"
 - key: MESSAGE_HOST

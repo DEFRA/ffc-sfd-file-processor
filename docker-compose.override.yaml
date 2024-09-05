@@ -16,7 +16,7 @@ services:
       - ./scripts:/home/node/scripts
       - ./package.json:/home/node/package.json
     environment:
-      STORAGE_CONNECTION_STRING: DefaultEndpointsProtocol=http;AccountName=devstoreaccount1;AccountKey=Eby8vdM02xNOcqFlqUwJPLlmEtlCDXJ1OUzFT50uSRZ6IFsuFq2UVErCz4I6tq/K1SZFPTOtr/KBHBeksoGMGw==;BlobEndpoint=http://ffc-sfd-file-processor-azurite:10000/devstoreaccount1;
+      STORAGE_CONNECTION_STRING: ${STORAGE_CONNECTION_STRING}
 
   ffc-sfd-file-processor-azurite:
     volumes:
@@ -24,6 +24,20 @@ services:
     ports:
       - "10019:10000"
 
+  ngrok:
+    image: ngrok/ngrok:latest
+    command: 
+      - "http"
+      - "ffc-sfd-file-processor-development:3019"
+    environment:
+      NGROK_AUTHTOKEN: ${NGROK_AUTHTOKEN}
+    ports:
+      - "4040:4040"
+  redis:
+    image: redis:latest
+    ports:
+      - "6379:6379"
+
 volumes:
-  azurite_data:    
+  azurite_data: 
       
