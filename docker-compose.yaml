@@ -24,6 +24,9 @@ services:
       AV_SCAN_SUBSCRIPTION_ADDRESS: ffc-sfd-crm-sd
       AV_SCAN_TOPIC_ADDRESS: ffc-sfd-crm-messages-sd
       SFD_EVENT_GRID_KEY: ${SFD_EVENT_GRID_KEY}
+      STORAGE_ACCOUNT_ENDPOINT: ${STORAGE_ACCOUNT_ENDPOINT}
+      REDIS_HOST: redis
+      REDIS_PORT: 6379
   
   ffc-sfd-file-processor-azurite:
     image: mcr.microsoft.com/azure-storage/azurite:3.31.0
