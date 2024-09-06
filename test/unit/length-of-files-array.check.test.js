@@ -13,6 +13,7 @@ describe('check length of files array', () => {
   })
 
   test('should not throw an error when files array length is less than MAX_FILES', async () => {
-    await expect(handleFileLimitExceeded([0, 1])).resolves.toBeUndefined()
+    const result = handleFileLimitExceeded([0, 1])
+    await expect(result).resolves.toBeUndefined()
   })
 })
